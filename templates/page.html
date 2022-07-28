@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+  <title>darkfi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel = "stylesheet" type = "text/css" href = "../static/css/main3.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+
+<body>
+  <div style="width: 100%;">
+    <header>
+      {% include 'header.html' %}
+    </header>
+
+   <div class = "article-image">
+     <div class = "slideshow">
+     <p><img src={{ page.img }} class ="content-img"></p>
+     </div>
+     <div class ="text">
+       <h1>{{ page.title }}</h1>
+     </div>
+
+
+    <div class= "article">
+     <div class="list">
+             <div class="frame15">
+             <a>{{ page.list1 }}</a>
+             </div>
+             <div class="frame17">
+             <a class = "remove-underline" href = "url" style="color: #7F8A96;">{{ page.list2 }}</a>          
+             </div>
+             <div class="frame18">
+             <a>{{ page.list3 }}</a>            
+             </div>
+     </div>
+
+     <div id= "subtitle">{{page.paragraph}}</div>
+     <div class = "container">
+         {{ page.html|safe }}
+      </div>
+  
+    </div>
+   </div>
+
+   <div class = "go-to-article">
+  
+      {% for article in y %}
+       {% if loop.index0==loop.first and page.title == article[2] %}
+        <div class = "previous-article remove-underline" onclick ="location.href='{{ y[loop.index0][1] }}';" style="cursor: pointer;"><i class="arrow3 right1"></i><p>(Previous article)</p></div>
+
+         <div class = "next-article remove-underline" onclick ="location.href='{{ y[loop.index0+1][1] }}';" style="cursor: pointer;"><p>(Next article)</p><i class="arrow2 right"></i></div>
+
+       {% elif loop.index0==loop.length-1 and page.title == article[2] %}
+        <div class = "previous-article  remove-underline" onclick ="location.href='{{ y[loop.index0][1] }}';" style="cursor: pointer;"><i class="arrow3 right1"></i><p>(Previous article)</p></div>
+        <div class = "next-article  remove-underline" onclick ="location.href='{{ y[loop.index0-1][1] }}';" style="cursor: pointer;"><p>(Next article)</p><i class="arrow2 right"></i></div>
+
+
+       {% elif page.title == article[2] %}
+         <div class = "previous-article remove-underline" onclick ="location.href='{{ y[loop.index0-1][1] }}';" style="cursor: pointer;"><i class="arrow3 right1"></i><p>(Previous article)</p></div>
+         <div class = "next-article remove-underline" onclick ="location.href='{{ y[loop.index0+1][1] }}';" style="cursor: pointer;"><p>(Next article)</p><i class="arrow2 right"></i></div>
+      {% endif %}
+      {% endfor %}
+   </div>
+   
+
+   <footer>
+      {% include 'footer.html' %}
+   </footer>
+
+  </div>
+</body>
